@@ -26,8 +26,6 @@ function ProductFilter({ onFilterChange }) {
                         </option>
                     ))}
                 </select>
-                
-                {/* Puedes añadir aquí el botón de Aplicar Filtro si quieres más lógica */}
             </div>
         </div>
     );

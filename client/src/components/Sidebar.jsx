@@ -15,7 +15,6 @@ const navItems = [
 ];
 
 function Sidebar() {
-    // --- Lógica de React (sin cambios) ---
     const location = useLocation();
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const userRole = user.rol;
@@ -27,24 +26,14 @@ function Sidebar() {
     };
 
     const filteredItems = navItems.filter(item => item.roles.includes(userRole));
-    // --- Fin de la Lógica ---
 
     return (
-        // --- CAMBIO 1: h-screen por h-[calc(100vh-5rem)] ---
-        // 'h-20' (5rem) es la altura de tu Header.
         <div className="relative w-64 flex-shrink-0 h-[calc(100vh-5rem)] bg-mimbres-cream flex flex-col justify-between shadow-lg">
 
-            {/* Div para el borde gradiente (sin cambios) */}
             <div className="absolute top-0 bottom-0 left-0 w-6 bg-gradient-to-b from-mimbres-primary to-mimbres-tertiary"></div>
 
-            {/* Contenido principal (con padding izquierdo) */}
-            {/* --- CAMBIO 2: Añadido overflow-hidden aquí --- */}
-            <div className="flex flex-col pl-6 flex-1 overflow-hidden"> {/* 'flex-1' y 'overflow-hidden' para contener la nav */}
+            <div className="flex flex-col pl-6 flex-1 overflow-hidden"> 
 
-                
-                {/* Navegación */}
-                {/* --- CAMBIO 3: Añadido overflow-y-auto aquí --- */}
-                {/* Esto permite que SÓLO la lista de enlaces haga scroll si es muy larga */}
                 <nav className="mt-5 flex-1 pr-3 space-y-2 overflow-y-auto"> 
                     {filteredItems.map((item) => {
                         const isActive = location.pathname.startsWith(item.path);
@@ -53,7 +42,6 @@ function Sidebar() {
                             <Link
                                 key={item.name}
                                 to={item.path}
-                                // Clases (sin cambios)
                                 className={`group flex items-center px-4 py-3 text-sm rounded-md transition-colors duration-150 ease-in-out
                                     ${isActive
                                         ? 'bg-mimbres-peach text-mimbres-primary font-semibold shadow-inner' 
@@ -62,7 +50,6 @@ function Sidebar() {
                                 }
                             >
                                 <Icon
-                                    // Clases (sin cambios)
                                     className={`mr-3 flex-shrink-0 h-5 w-5 ${isActive ? 'text-mimbres-primary' : 'text-gray-500 group-hover:text-mimbres-primary'}`}
                                     aria-hidden="true"
                                 />
@@ -73,7 +60,6 @@ function Sidebar() {
                 </nav>
             </div>
 
-            {/* Sección Inferior: Usuario y Logout (sin cambios) */}
             <div className="pl-3 pr-3 pb-4"> 
                 <div className="border-t border-gray-200 pt-4">
                     <div className="text-center mb-3">

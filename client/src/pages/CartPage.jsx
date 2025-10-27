@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// 1. Importaciones necesarias (incluyendo las que faltaban)
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -8,18 +7,11 @@ import Footer from '../components/Footer.jsx';
 import { useCartStore } from '../store/cart.store.js';
 import { Trash2, Plus, Minus, ArrowLeft, ShoppingCart, Frown, Loader2 } from 'lucide-react';
 
-// 2. Definir la URL de la API
 const API_PEDIDOS_URL = 'http://localhost:3001/api/pedidos';
 
 const SELLER_WHATSAPP_NUMBER = '59163418018';
 
-/**
- * Componente para una fila de producto en el carrito
- * (Estilos Refactorizados)
- */
 const CartItemRow = ({ item, addProduct, decrementProduct, removeProduct }) => (
-    // --- ESTILOS DE FILA ---
-    // Aumentamos el padding vertical (py-6) para más "aire"
     <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between py-6 border-b border-gray-200 gap-4">
         
         {/* Producto (Imagen y Texto) */}
@@ -27,13 +19,10 @@ const CartItemRow = ({ item, addProduct, decrementProduct, removeProduct }) => (
             <img 
                 src={item.imageUrl} 
                 alt={item.name} 
-                // --- ESTILOS DE IMAGEN ---
-                // Más grande, más redondeo
                 className="w-24 h-24 object-contain rounded-lg bg-gray-50 p-2" 
             />
             <div>
                 {/* --- ESTILOS DE TEXTO --- */}
-                {/* Título con tu color marrón oscuro */}
                 <h3 className="text-lg font-semibold text-[#644c44]">{item.name}</h3>
                 <p className="text-sm text-gray-500">Precio: Bs. {item.price.toFixed(2)}</p>
             </div>
@@ -45,7 +34,6 @@ const CartItemRow = ({ item, addProduct, decrementProduct, removeProduct }) => (
             {/* Controles de Cantidad */}
             <div className="flex items-center space-x-2 sm:space-x-3">
                 {/* --- ESTILOS DE BOTONES +/- --- */}
-                {/* Más grandes (p-2), con color de texto sutil y hover más claro */}
                 <button 
                     onClick={() => decrementProduct(item.id)}
                     className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors duration-200"
@@ -54,7 +42,7 @@ const CartItemRow = ({ item, addProduct, decrementProduct, removeProduct }) => (
                 </button>
                 <span className="w-10 text-center text-lg font-semibold text-gray-800">{item.quantity}</span>
                 <button 
-                    onClick={() => addProduct(item)} // Re-usa la lógica de addProduct
+                    onClick={() => addProduct(item)} 
                     className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors duration-200"
                 >
                     <Plus className="w-4 h-4" />
@@ -67,7 +55,6 @@ const CartItemRow = ({ item, addProduct, decrementProduct, removeProduct }) => (
                     Bs. {(item.price * item.quantity).toFixed(2)}
                 </span>
                 {/* --- ESTILOS BOTÓN ELIMINAR --- */}
-                {/* Más sutil por defecto (gris), se vuelve rojo y se escala en hover */}
                 <button 
                     onClick={() => removeProduct(item.id)}
                     className="text-gray-400 hover:text-red-600 hover:scale-110 transition-all duration-200 p-2"
@@ -80,7 +67,7 @@ const CartItemRow = ({ item, addProduct, decrementProduct, removeProduct }) => (
     </div>
 );
 
-// (Función generateWhatsAppMessage sin cambios)
+// (Función generateWhatsAppMessage
 const generateWhatsAppMessage = (pedidoId, items, total, telefonoCliente) => {
     let message = `¡Hola! Acabo de registrar el Pedido Web *#${pedidoId}*.\n\n`;
     message += `*Mi Resumen de Pedido:*\n`;
@@ -98,7 +85,7 @@ const generateWhatsAppMessage = (pedidoId, items, total, telefonoCliente) => {
  * Componente Principal: CartPage
  */
 function CartPage() {
-    // (Lógica de React sin cambios)
+    
     const { 
         cartItems, 
         addProduct, 
@@ -148,26 +135,21 @@ function CartPage() {
     return (
         <>
             {/* --- ESTILOS DE CONTENEDOR PRINCIPAL --- */}
-            {/* Más padding vertical (py-16 md:py-24) para un look "premium" */}
             <div className="bg-gray-50 min-h-screen py-16 md:py-24">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
                     {/* --- ESTILOS BOTÓN "VOLVER" --- */}
-                    {/* 'group' para micro-interacción en el icono */}
                     <div className="mb-8">
                         <Link 
                             to="/" 
-                            // Color marrón, hover terracota.
                             className="group flex items-center text-[#644c44] hover:text-[#a4544c] transition-colors duration-200 font-medium"
                         >
-                            {/* Icono con micro-interacción: se mueve a la izquierda en hover */}
                             <ArrowLeft className="w-5 h-5 mr-2 transition-transform duration-300 ease-out group-hover:-translate-x-1" />
                             Seguir comprando
                         </Link>
                     </div>
 
                     {/* --- ESTILOS DE TÍTULO --- */}
-                    {/* Más grande y con menos peso (bold en vez de extrabold) */}
                     <h1 className="text-4xl md:text-5xl font-bold text-[#644c44] mb-10 tracking-tight">
                         Tu Carrito de Compras
                     </h1>
@@ -175,7 +157,6 @@ function CartPage() {
                     {cartItems.length === 0 ? (
                         // --- ESTILOS CARRITO VACÍO ---
                         <div className="text-center bg-white p-12 md:p-20 rounded-2xl shadow-xl border border-gray-100">
-                            {/* Icono con tu color naranja (menos "triste" que el rojo) */}
                             <Frown className="w-20 h-20 text-[#e3a45c] mx-auto mb-6" />
                             <h2 className="text-3xl font-semibold text-[#644c44]">Tu carrito está vacío</h2>
                             <p className="text-gray-500 mt-3 text-lg">
@@ -184,15 +165,11 @@ function CartPage() {
                         </div>
                     ) : (
                         // --- ESTILOS CARRITO LLENO (GRID) ---
-                        // Más 'gap' (espacio) entre columnas
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                             
-                            {/* Columna Izquierda: Lista de Productos */}
                             {/* --- ESTILOS DE TARJETA --- */}
-                            {/* Redondeo más grande (rounded-2xl), más padding (p-8), sombra más suave (shadow-xl) */}
                             <div className="lg:col-span-2 bg-white p-6 md:p-8 rounded-2xl shadow-xl">
                                 <h2 className="text-2xl font-semibold text-[#644c44] mb-4">Productos en tu carrito</h2>
-                                {/* Borde más sutil (border-gray-200) */}
                                 <div className="divide-y divide-gray-200">
                                     {cartItems.map(item => (
                                         <CartItemRow 
@@ -206,9 +183,7 @@ function CartPage() {
                                 </div>
                             </div>
 
-                            {/* Columna Derecha: Resumen y Checkout */}
                             {/* --- ESTILOS DE TARJETA STICKY --- */}
-                            {/* Sombra y redondeo consistentes */}
                             <div className="lg:col-span-1 bg-white p-6 md:p-8 rounded-2xl shadow-xl h-fit sticky top-24">
                                 <h2 className="text-2xl font-semibold text-[#644c44] mb-5 border-b border-gray-200 pb-4">Resumen del Pedido</h2>
                                 
@@ -218,7 +193,6 @@ function CartPage() {
                                         <span className="font-semibold text-gray-800">Bs. {totalPrice.toFixed(2)}</span>
                                     </div>
                                     {/* --- ESTILOS DE TOTAL --- */}
-                                    {/* Más grande, color marrón, más espacio */}
                                     <div className="flex justify-between text-2xl font-bold text-[#644c44] pt-3">
                                         <span>Total Estimado:</span>
                                         <span>Bs. {totalPrice.toFixed(2)}</span>
@@ -235,7 +209,6 @@ function CartPage() {
                                             Tu número de WhatsApp:
                                         </label>
                                         {/* --- ESTILOS DE INPUT --- */}
-                                        {/* Más padding (py-3), fondo sutil (bg-gray-50), borde suave, y foco con tu color naranja */}
                                         <input 
                                             type="tel" 
                                             id="whatsapp"
@@ -249,7 +222,6 @@ function CartPage() {
                                     </div>
 
                                     {/* --- ESTILOS BOTÓN PRINCIPAL --- */}
-                                    {/* Color primario (terracota), hover marrón, más grande, con sombra de color */}
                                     <button 
                                         type="submit"
                                         disabled={isSubmitting}
@@ -265,7 +237,6 @@ function CartPage() {
                                 </form>
 
                                 {/* --- ESTILOS BOTÓN "VACIAR" --- */}
-                                {/* Sutil por defecto, rojo solo en hover */}
                                 <button 
                                     onClick={clearCart}
                                     disabled={isSubmitting}

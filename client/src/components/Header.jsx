@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-// Importaciones limpiadas: Se quitaron LogOut y UserCircle
 import { ShoppingCart, Search, Eye } from 'lucide-react'; 
-import Logo from '../assets/SEGUNDO USO.png'; // Logo correcto
+import Logo from '../assets/SEGUNDO USO.png';
 import { useCartStore } from '../store/cart.store.js';
 import '../index.css';
 
@@ -18,9 +17,6 @@ function Header({ onSearch }) {
 
     const isPanelPage = location.pathname.startsWith('/panel');
 
-    // La función handleLogout ya no es necesaria aquí, pero la dejamos
-    // por si la necesitas en otro lado (o la puedes borrar).
-    // El 'Sidebar' ahora maneja esto.
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -32,7 +28,6 @@ function Header({ onSearch }) {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
 
-                    {/* Logo (Izquierda) */}
                     <Link to={user ? "/panel/dashboard" : "/"} className="flex-shrink-0">
                         <img 
                             className="h-14 w-auto transition-transform duration-300 ease-out hover:scale-105" 
@@ -41,11 +36,9 @@ function Header({ onSearch }) {
                         />
                     </Link>
 
-                    {/* Lado Derecho (Público - Catálogo) - SIN CAMBIOS */}
                     {!isPanelPage && (
                         <div className="flex items-center space-x-4 sm:space-x-6">
 
-                            {/* Barra de Búsqueda */}
                             {typeof onSearch === 'function' && (
                                 <div className="relative">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -73,12 +66,9 @@ function Header({ onSearch }) {
                         </div>
                     )}
 
-                    {/* --- BLOQUE MODIFICADO --- */}
-                    {/* Elementos DERECHA si SÍ estás en el panel */}
                     {isPanelPage && user && (
                         <div className="flex items-center space-x-4 md:space-x-6">
                             
-                            {/* ÚNICO ELEMENTO: "Ver sitio" */}
                             <Link 
                                 to="/" 
                                 target="_blank" 
@@ -89,18 +79,7 @@ function Header({ onSearch }) {
                                 Ver sitio
                             </Link>
                             
-                            {/* --- ELIMINADO ---
-                            <div className="flex items-center space-x-2">
-                                <UserCircle .../>
-                                <span ...>Hola, {user.username}</span>
-                            </div>
-                            */}
-                            
-                            {/* --- ELIMINADO ---
-                            <button onClick={handleLogout} ...>
-                                <LogOut ... />
-                            </button>
-                            */}
+                           
                         </div>
                     )}
 
